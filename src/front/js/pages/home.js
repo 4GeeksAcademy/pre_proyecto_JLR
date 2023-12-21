@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
+import { Link } from "react-router-dom";
+import rigoImageUrl from "../../img/cohete.png";
 import "../../styles/home.css";
 
 export const Home = () => {
@@ -8,12 +9,14 @@ export const Home = () => {
 
 	return (
 		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
+			<h1>Bienvenido a la API de Usuarios</h1>
+
 			<p>
-				<img src={rigoImageUrl} />
+				<img style={{width:"200px"}} src={rigoImageUrl} />
 			</p>
+			<p>Puedes crear usuarios y hacer login con ellos, se autentifican por Tokens, ya te digo yo que 3 cositas más y esto es un instagram.</p>
 			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
+				{store.message || "El servidor Backend esta inactivo, correr el pipenv run start."}
 			</div>
 			<p>
 				This boilerplate comes with lots of documentation:{" "}
