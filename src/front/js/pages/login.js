@@ -14,7 +14,6 @@ export const Login = () => {
     .then((result) => {
       if(result.status === 401) {
           alert("Error al iniciar sesion, revisa tu email o password");
-          setEmail("")
           setPassword("");
       }
   })
