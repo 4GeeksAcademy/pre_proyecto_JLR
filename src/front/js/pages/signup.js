@@ -7,13 +7,13 @@ export const Signup = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] =useState('')
-    const {store, actions} = useContext(Context)
+    const {actions} = useContext(Context)
     
 
     function sendData(e){
         e.preventDefault()
         console.log("send data")
-        console.log(email, password)
+
         actions.signup(email, password)
         .then((result) => {
             if (result.status === 200) {

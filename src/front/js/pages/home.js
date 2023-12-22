@@ -16,7 +16,7 @@ export const Home = () => {
 			</p>
 			<p>Puedes crear usuarios y hacer login con ellos, se autentifican por Tokens, ya te digo yo que 3 cositas más y esto es un instagram.</p>
 			<div className="alert alert-info">
-				{store.message || "El servidor Backend esta inactivo, correr el pipenv run start."}
+				{store.message || "El servidor Backend esta inactivo."}
 			</div>
 			<p>
 				This boilerplate comes with lots of documentation:{" "}

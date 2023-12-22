@@ -32,12 +32,12 @@ def login():
     password = request.json.get("password", None)
 
     user = User.query.filter_by(email=email).first()
-    print(user)
+    
 
     if user == None:
-        return jsonify({"msg": "Could not find Email"}), 401
+        return jsonify({"msg": "No se pudo encontrar el Email"}), 401
     if password != user.password:
-        return jsonify({"msg": "Bad Email or Password"}), 401
+        return jsonify({"msg": "Error en el Email o el Password"}), 401
 
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token)
@@ -46,10 +46,10 @@ def login():
 @api.route('/signup', methods=['POST'])
 def signup():
     body = request.get_json()
-    print(body)
+    
 
     user = User.query.filter_by(email=body["email"]).first()
-    print(user)
+
     if user == None:
         user = User(email=body["email"], password=body["password"], is_active = True)
         db.session.add(user)

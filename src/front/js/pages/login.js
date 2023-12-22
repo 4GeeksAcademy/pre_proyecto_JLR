@@ -10,8 +10,6 @@ export const Login = () => {
 
   function sendData(e) {
     e.preventDefault();
-    console.log("send data");
-    console.log(email, password);
     actions.login(email, password)
     .then((result) => {
       if(result.status === 401) {
