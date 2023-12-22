@@ -2,17 +2,34 @@ import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
+
 export const Signup = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] =useState('')
+    const {store, actions} = useContext(Context)
+    
 
     function sendData(e){
         e.preventDefault()
         console.log("send data")
         console.log(email, password)
+        actions.signup(email, password)
+        .then((result) => {
+            if (result.status === 200) {
+                alert("Usuario creado correctamente!, ahora puedes hacer Login")
+                setEmail("")
+                setPassword("");
+            } else if(result.status === 401) {
+                alert("El usuario ya existe o no se puede crear");
+                setEmail("")
+                setPassword("");
+            }
+        })
     }
 
+
+    
 
     return (
         <>
