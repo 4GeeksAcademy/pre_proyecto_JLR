@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Producto_seco
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
@@ -60,3 +60,44 @@ def signup():
         return jsonify(response_body), 200
     else:
         return jsonify({"msg":"Ya existe un usuario con ese correo"}), 401
+    
+#Crear nuevo productor
+@api.route('/producto', methods=['POST'])
+def create_product():
+    body = request.get_json()
+    
+    new_product = Producto_seco(
+        Nombre=body['Nombre'],
+        Peso_cantidad=body['Peso_cantidad'],
+        Formato=body['Formato'],
+        Notas=body['Notas']
+    )
+
+    db.session.add(new_product)
+    db.session.commit()
+
+    response_body = {"msg": f"El el producto {new_product.Nombre} se agregó correctamente a tu alacena virtual."}
+    return jsonify(response_body)
+    
+# Traer los productos creados
+@api.route('/producto', methods=['GET'])
+def get_products():
+    # Consulta todos los productos en la base de datos
+    products = Producto_seco.query.all()
+
+    # Serializa los productos en un formato JSON
+    serialized_products = [product.serialize() for product in products]
+
+    # Devuelve la lista de productos como respuesta
+    return jsonify(serialized_products)
+
+# Traer un producto por Id
+@api.route('/producto/<int:producto_id>', methods=['GET'])
+def get_one_product(producto_id):
+    producto = Producto_seco.query.get(producto_id)
+    
+    if producto is None:
+        return jsonify({"error": "Producto no encontrado"}), 404
+
+    return jsonify(producto.serialize()), 200
+
