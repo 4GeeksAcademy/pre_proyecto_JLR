@@ -4,16 +4,17 @@ import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
 export const Login = () => {
-  const [email, setEmail] = useState("");
+  const [user_name, setUser_name] = useState('')
   const [password, setPassword] = useState("");
   const {store, actions} = useContext(Context)
 
   function sendData(e) {
     e.preventDefault();
-    actions.login(email, password)
+    actions.login(user_name, password)
     .then((result) => {
       if(result.status === 401) {
-          alert("Error al iniciar sesion, revisa tu email o password");
+          alert("Error al iniciar sesion, revisa tu nombre de usuario o password");
+          setUser_name("")
           setPassword("");
       }
   })
@@ -32,14 +33,14 @@ export const Login = () => {
         <form onSubmit={sendData}>
           <label>
             <div className="row mt-3 ">
-              <p className="ms-2">Email de usuario:</p>
+              <p className="ms-2">Nombre de usuario:</p>
               <div className="input-group mb-3 col-12">
                 <input
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  type="email"
+                  value={user_name}
+                  onChange={(e) => setUser_name(e.target.value)}
+                  type="string"
                   className="form-control"
-                  placeholder="Email"
+                  placeholder="Nombre de usuario"
                   aria-describedby="basic-addon1"
                 />
               </div>

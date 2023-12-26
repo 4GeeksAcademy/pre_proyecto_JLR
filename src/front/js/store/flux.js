@@ -15,19 +15,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			],
 			auth: false,
-			email: null
+			user_name: null
 
 		},
 		actions: {
 
-			login: async (email, password) => {
+			login: async (user_name, password) => {
 				try {
 					console.log("login");
 			
 					const requestOptions = {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({ email, password })
+						body: JSON.stringify({user_name, password })
 					};
 			
 					const response = await fetch(`${process.env.BACKEND_URL}/api/login`, requestOptions);
@@ -36,7 +36,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(response.status);
 			
 					if (response.status === 200) {
-						setStore({ auth: true, email });
+						setStore({ auth: true });
 						localStorage.setItem("token", data.access_token);
 					} else if (response.status === 401) {
 						console.log("Unauthorized");
@@ -49,15 +49,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			signup: async (email, password) => {
+			signup: async (user_name, email, password) => {
 				try {
 					console.log("signup");
 					const requestOptions = {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify({
+							user_name: user_name,
 							email: email,
-							password: password,
+							password: password
 						}),
 					};
 			
