@@ -8,10 +8,14 @@ import ReactPlayer from 'react-player'
 export const Private = () => {
     const { store, actions } = useContext(Context);
 
+    useEffect(() => {
+        console.log("User Name:", store.user_name);
+    }, [store.user_name]);
+
     return (
         <>
         <div className="text-center mt-5">
-            <h1>Bienvenido <b>{store.email}</b> esta es tu pagina privada.</h1>
+            <h1>Bienvenido <b>{store.user_name}</b> esta es tu pagina privada.</h1>
         </div>
 
 

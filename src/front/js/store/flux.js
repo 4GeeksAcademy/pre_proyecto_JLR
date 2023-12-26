@@ -36,7 +36,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(response.status);
 			
 					if (response.status === 200) {
-						setStore({ auth: true });
+						setStore({ auth: true, user_name: data.user_name });
 						localStorage.setItem("token", data.access_token);
 					} else if (response.status === 401) {
 						console.log("Unauthorized");

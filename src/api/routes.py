@@ -37,7 +37,7 @@ def login():
         return jsonify({"msg": "Error en el Nombre de Usuario o Password"}), 401
 
     access_token = create_access_token(identity=user_name)
-    return jsonify(access_token=access_token)
+    return jsonify(access_token=access_token, user_name=user_name)
 
 # Crar un nuevo usuario
 @api.route('/signup', methods=['POST'])
