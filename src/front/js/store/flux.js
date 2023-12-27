@@ -91,20 +91,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
+            create_product: async (Nombre, Peso_cantidad, Formato, Notas) => {
+                try {
+                    const requestOptions = {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            Nombre: Nombre,
+                            Peso_cantidad: Peso_cantidad,
+                            Formato: Formato,
+                            Notas: Notas
+                        })
+                    };
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/producto`, requestOptions);
+                    const data = await response.json();
 
-				//reset the global store
-				setStore({ demo: demo });
-			},
+                    return data;
+                } catch (error) {
+                    console.error("Error during create_product:", error);
+                    throw error;
+                }
+            },
 
 			logout: (index, color) => {
 				console.log("Estas tratanto de salir")

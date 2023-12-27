@@ -24,6 +24,9 @@ export const Home = () => {
 					Read documentation
 				</a>
 			</p>
+			<Link to="/create_product">
+					<button className="btn btn-secondary">BORRAR AL TERMINAAAR</button>
+				</Link>
 		</div>
 	);
 };
