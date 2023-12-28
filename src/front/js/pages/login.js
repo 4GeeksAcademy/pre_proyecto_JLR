@@ -26,11 +26,9 @@ export const Login = () => {
     
     <div>
       {store.auth === true ? <Navigate to="/private"/> : null}
-      <div className="container">
-        <h1>Login</h1>
-      </div>
-      <div className="container border">
-        <form onSubmit={sendData}>
+      <div className="container border " style={{ marginBlockStart:"0", paddingInline:"3%", width:""}}>
+      <h2>Inicia sesion para continuar:</h2>
+        <form onSubmit={sendData} style={{}}>
           <label>
             <div className="row mt-3 ">
               <p className="ms-2">Nombre de usuario:</p>
@@ -62,9 +60,9 @@ export const Login = () => {
               Entrar
             </button>
           </div>
-          <Link to="/">
-            <button className="btn btn-light mb-4">Volver al home</button>
-          </Link>
+          <Link to="/signup">
+					<p>Nuevo usuario? Registrate aqui</p>
+				</Link>
         </form>
       </div>
     </div>

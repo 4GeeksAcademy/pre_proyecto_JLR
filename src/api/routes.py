@@ -20,7 +20,7 @@ CORS(api)
 def handle_hello():
 
     response_body = {
-        "message": "Los servidores del Backend estan activos."
+        "message": "Servidores OK"
     }
 
     return jsonify(response_body), 200
