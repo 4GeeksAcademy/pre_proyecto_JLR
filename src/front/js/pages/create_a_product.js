@@ -53,7 +53,7 @@ export const CreateProduct = () => {
         <>
             <div>
                 <div className="container">
-                    <h1>Create Product</h1>
+                    <h1>Datos del producto:</h1>
                 </div>
                 <div className="container border">
                     <form onSubmit={handleSubmit}>
@@ -114,11 +114,8 @@ export const CreateProduct = () => {
                             </div>
                         </div>
                         <div className="input-group mb-3 col-12">
-                            <button type="submit" className="btn btn-secondary">Create Product</button>
+                            <button type="submit" className="btn btn-secondary">Crear nuevo producto</button>
                         </div>
-                        <Link to="/">
-                            <button className="btn btn-light mb-4">Back to Home</button>
-                        </Link>
                     </form>
                 </div>
             </div>
