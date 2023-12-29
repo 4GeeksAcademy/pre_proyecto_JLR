@@ -91,28 +91,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
-            create_product: async (Nombre, Peso_cantidad, Formato, Notas) => {
-                try {
-                    const requestOptions = {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            Nombre: Nombre,
-                            Peso_cantidad: Peso_cantidad,
-                            Formato: Formato,
-                            Notas: Notas
-                        })
-                    };
-
-                    const response = await fetch(`${process.env.BACKEND_URL}/api/producto`, requestOptions);
-                    const data = await response.json();
-
-                    return data;
-                } catch (error) {
-                    console.error("Error during create_product:", error);
-                    throw error;
-                }
-            },
+			create_product: async (Nombre, Peso_cantidad, Formato, Notas) => {
+				try {
+					const requestOptions = {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							'Authorization': `Bearer ${localStorage.getItem('token')}`
+						},
+						body: JSON.stringify({
+							Nombre: Nombre,
+							Peso_cantidad: Peso_cantidad,
+							Formato: Formato,
+							Notas: Notas,
+							user_name: localStorage.getItem('user_name') // Agregamos el nombre de usuario al cuerpo de la solicitud
+						})
+					};
+			
+					const response = await fetch(`${process.env.BACKEND_URL}/api/producto`, requestOptions);
+					const data = await response.json();
+			
+					return data;
+				} catch (error) {
+					console.error("Error during create_product:", error);
+					throw error;
+				}
+			},
 
 			logout: (index, color) => {
 				console.log("Estas tratanto de salir")

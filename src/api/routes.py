@@ -60,10 +60,14 @@ def signup():
     
 #Crear nuevo productor
 @api.route('/producto', methods=['POST'])
+@jwt_required()  # Asegura que el usuario esté autenticado
 def create_product():
     body = request.get_json()
     
+    current_user_id = get_jwt_identity()  # Obtiene el ID del usuario autenticado
+    
     new_product = Producto_seco(
+        user_id=current_user_id,
         Nombre=body['Nombre'],
         Peso_cantidad=body['Peso_cantidad'],
         Formato=body['Formato'],
@@ -73,19 +77,16 @@ def create_product():
     db.session.add(new_product)
     db.session.commit()
 
-    response_body = {"msg": f"El el producto {new_product.Nombre} se agregó correctamente a tu alacena virtual."}
+    response_body = {"msg": f"El producto {new_product.Nombre} se agregó correctamente a tu alacena virtual."}
     return jsonify(response_body)
     
 # Traer los productos creados
 @api.route('/producto', methods=['GET'])
+@jwt_required()
 def get_products():
-    # Consulta todos los productos en la base de datos
-    products = Producto_seco.query.all()
-
-    # Serializa los productos en un formato JSON
+    current_user_id = get_jwt_identity()
+    products = Producto_seco.query.filter_by(user_id=current_user_id).all()
     serialized_products = [product.serialize() for product in products]
-
-    # Devuelve la lista de productos como respuesta
     return jsonify(serialized_products)
 
 # Traer un producto por Id
@@ -97,4 +98,3 @@ def get_one_product(producto_id):
         return jsonify({"error": "Producto no encontrado"}), 404
 
     return jsonify(producto.serialize()), 200
-

@@ -1,33 +1,29 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 export const Login = () => {
-  const [user_name, setUser_name] = useState('')
+  const [user_name, setUser_name] = useState('');
   const [password, setPassword] = useState("");
-  const {store, actions} = useContext(Context)
+  const { store, actions } = useContext(Context);
 
   function sendData(e) {
     e.preventDefault();
     actions.login(user_name, password)
-    .then((result) => {
-      if(result.status === 401) {
-          alert("Error al iniciar sesion, revisa tu nombre de usuario o password");
-          setUser_name("")
+      .then((result) => {
+        if (result.status === 401) {
+          alert("Error al iniciar sesión, revisa tu nombre de usuario o contraseña");
+          setUser_name("");
           setPassword("");
-      }
-  })
-    
-
+        }
+      });
   }
 
   return (
-    
     <div>
-      {store.auth === true ? <Navigate to="/private"/> : null}
-      <div className="container border " style={{ marginBlockStart:"0", paddingInline:"3%", width:""}}>
-      <h2>Inicia sesion para continuar:</h2>
+      {store.auth === true ? <Navigate to="/private" /> : null}
+      <div className="container border" style={{ marginBlockStart: "0", paddingInline: "3%", width: "" }}>
+        <h2>Inicia sesión para continuar:</h2>
         <form onSubmit={sendData} style={{}}>
           <label>
             <div className="row mt-3 ">
@@ -50,7 +46,7 @@ export const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="form-control"
-                placeholder="Password"
+                placeholder="Contraseña"
                 aria-describedby="basic-addon1"
               />
             </div>
@@ -61,8 +57,8 @@ export const Login = () => {
             </button>
           </div>
           <Link to="/signup">
-					<p>Nuevo usuario? Registrate aqui</p>
-				</Link>
+            <p>Nuevo usuario? Regístrate aquí</p>
+          </Link>
         </form>
       </div>
     </div>

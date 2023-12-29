@@ -21,7 +21,7 @@ export const CreateProduct = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         try {
             const responseData = await actions.create_product(
                 productData.Nombre,
@@ -29,17 +29,14 @@ export const CreateProduct = () => {
                 productData.Formato,
                 productData.Notas
             );
-
-            console.log(responseData); // Aquí puedes hacer algo con la respuesta del servidor, por ejemplo, redireccionar a otra página
-            
-            // Si la respuesta es exitosa (código 200), actualiza el estado con valores vacíos
-            if (responseData.msg && responseData.msg.includes("se agregó correctamente a tu alacena virtual")) {
-                setProductData({
-                    Nombre: "",
-                    Peso_cantidad: "",
-                    Formato: "",
-                    Notas: ""
-                });
+    
+            if (typeof responseData === 'object') {
+                // El servidor devolvió un objeto JSON válido
+                console.log("Response Data:", responseData);
+                // Resto del código...
+            } else {
+                // El servidor no devolvió un JSON válido
+                console.error("Invalid JSON response from the server:", responseData);
             }
         } catch (error) {
             console.error("Error during form submission:", error);
